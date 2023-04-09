@@ -1,0 +1,54 @@
+@use '@/styles/_variables';
+
+.container {
+    font-family: variables.$font;
+    font-weight: 500;
+    top: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+
+    &__card {
+        color: variables.$color-secondary--dark;
+        border-radius: 10px;
+        height: 200px;
+        text-align: center;
+        background-color: variables.$color-gray--light;
+        flex: 0 1 340px;
+        margin: 10px;
+        > h2 {
+            font-size: 1.3em;
+            padding-top: 15px;
+        }
+    }
+
+    &__info {
+        font-size: 1.125rem;
+        font-weight: 400;
+        padding-top: 20px;
+    }
+}
+
+@for $i from 1 through length(variables.$colors) {
+    .container__card:nth-child(#{length(variables.$colors)}n+#{$i}) {
+        border-left: nth(variables.$colors, $i) 5px solid;
+    }
+}
+
+@media (min-width: 752px) {
+    .container {
+        padding-top: 0;
+        margin-top: 0;
+    }
+}
+
+@media (max-height: 600px) or (max-width: 600px){
+    .container {
+        top: 0;
+        margin-top: 20vh;
+        padding-top: 15vh;
+    }
+}
+
