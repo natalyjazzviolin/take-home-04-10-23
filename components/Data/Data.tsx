@@ -6,33 +6,26 @@ import styles from "./Data.module.scss"
 
 const Data = () => {
 
-    const [syncTime, setSyncTime] = useState<SyncTime[]>([])
+    const [syncTime, setSyncTime] = useState<SyncTime[]>([]);
     const [recent, setRecent] = useState<Date>();
     const [previousFourSyncs, setPreviousFourSyncs] = useState<SyncTime[]>([]);
     const [averageSyncTime, setAverageSyncTime] = useState<AverageSyncTime>();
     const [nextSync, setNextSync] = useState<Date>();
 
-    let options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "EDT",
-    };
-
+    /**
+     * Transforms the initial data array and returns it as JavaScript Date objects.
+     */
     useEffect(() => {
         setSyncTime(
           sortDates(
-            data.map((d: any) => {
+            data.map((sync: any) => {
               let end: Date = createDateString(
-                d.sync_end_date,
-                d.sync_end_time
+                sync.sync_end_date,
+                sync.sync_end_time
               );
               let start: Date = createDateString(
-                d.sync_start_date,
-                d.sync_start_time
+                sync.sync_start_date,
+                sync.sync_start_time
               );
 
               return {
@@ -44,8 +37,13 @@ const Data = () => {
         );
     }, [])
 
+    /**
+     * Sets and returns 3 variables to be displayed:
+     * 1. The most recent completed sync time.
+     * 2. The previous 4 completed sync times.
+     * 3. The average time between the most recent 10 completed syncs.
+     */
     useEffect(() => {
-
         if (syncTime != undefined) {
           setRecent(syncTime.slice(0)[0]?.end);
           setPreviousFourSyncs(syncTime.slice(1,5))
@@ -53,12 +51,22 @@ const Data = () => {
         }
     }, [syncTime])
 
+    /**
+     * Sets and returns an educated estimation of the next completed sync time.
+     * This variable depends on the most recent and average sync times.
+     */
     useEffect(() => {
         if(recent != undefined && averageSyncTime?.milliseconds != undefined) {
             setNextSync(estimateNextSync(recent, averageSyncTime.milliseconds));
         }
     },[recent, averageSyncTime])
 
+    /**
+     * In a production environment, I would have:
+     * - extracted the 'card' divs into their own component.
+     * - put the relevant data into an array and mapped through it to display the cards.
+     * - Extracted the displayed text into a .json file to support internationalization.
+     */
     return (
       <div className={styles.container}>
         <div className={styles.container__card}>
@@ -84,7 +92,7 @@ const Data = () => {
         <div className={styles.container__card}>
           <h2>Next sync estimate:</h2>
           <div className={styles.container__info}>
-            <p>{nextSync?.toLocaleString("en-US")}</p>
+            <p>{nextSync?.toLocaleString()}</p>
           </div>
         </div>
       </div>
