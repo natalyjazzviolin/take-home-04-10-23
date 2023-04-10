@@ -3,8 +3,6 @@
 .container {
     font-family: variables.$font;
     font-weight: 500;
-    top: 0;
-
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -34,21 +32,6 @@
 @for $i from 1 through length(variables.$colors) {
     .container__card:nth-child(#{length(variables.$colors)}n+#{$i}) {
         border-left: nth(variables.$colors, $i) 5px solid;
-    }
-}
-
-@media (min-width: 752px) {
-    .container {
-        padding-top: 0;
-        margin-top: 0;
-    }
-}
-
-@media (max-height: 600px) or (max-width: 600px){
-    .container {
-        top: 0;
-        margin-top: 20vh;
-        padding-top: 15vh;
     }
 }
 
