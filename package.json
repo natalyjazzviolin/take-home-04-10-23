@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/eslint-plugin-next": "^13.3.0",
+    "@swc/jest": "^0.2.24",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
@@ -24,8 +25,6 @@
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
     "@types/jest": "^29.5.0",
-    "babel-jest": "^29.5.0",
-    "jest": "^29.5.0",
     "sass": "^1.61.0"
   }
 }
