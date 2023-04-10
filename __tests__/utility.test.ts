@@ -8,4 +8,4 @@ describe("estimateNextSync()", () => {
 
       expect(nextSync).toBeInstanceOf(Date);
     });
-})
+});
